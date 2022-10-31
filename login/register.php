@@ -83,59 +83,39 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     <head>
         <title>SignUp</title><meta charset="UTF-8">
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
-            * {margin: 0; border: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif;}
+             * {margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif;}
             body {
-                background: #666 no-repeat; min-height: 100vh; min-width: 100vw;
-                display: flex; align-items: center; justify-content: center; 
+                background: #666; background-size: cover; min-height: 100vh; display: flex; justify-content: center; align-items: center;
             }
-            main.container {
-                background: white; min-width: 320px; min-height: 40vh; padding: 2rem; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-                border-radius: 8px;
+            form {
+                background: #eee; padding: 20px; display: inline-flex; flex-direction: column; align-items: center; border-radius: 8px; width: 300px; height: 500px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
             }
-            main h2 {font-weight: 600; margin-bottom: 2rem; position: relative;}
-            main h2::before {
-                content: ''; position: absolute; height: 4px; width: 25px; bottom: 3px; left: 0; border-radius: 8px;
-                background: linear-gradient(45deg, #0ca711, #0ca752);
+            form h2 {margin-top: 20px; font-size: 55px; margin-bottom: 30px; color: #000;}
+            form input {
+                border: none; background: none; text-align: center; outline: none; padding: 9px; margin: 20px; color: #000; height: 30px; width: 70%; 
+                border-radius: 40px; transition: 0.2s ease-in;
             }
-            form {display: flex; flex-direction: column;}
-            .input-field {position: relative;}
-            form .input-field:first-child {margin-bottom: 1.5rem;}
-            .input-field .underline::before {
-                content: ''; position: absolute; height: 1px; width: 100%; bottom: -5px; left: 0; background: rgba(0, 0, 0, 0.2);
-            }
-            .input-field .underline::after {
-                content: ''; position: absolute; height: 1px; width: 100%; bottom: -5px; left: 0; background: #0ca711;
-                transform: scaleX(0); transition: all .3s ease-in-out; transform-origin: left; 
-            }
-            .input-field input:focus ~ .underline::after {transform: scaleX(1);}
-            .input-field input {outline: none; font-size: 0.9rem; color: rgba(0, 0, 0, 0.7); width: 100%;}
-            .input-field input::placeholder {color: rgba(0, 0, 0, 0.5);}
+            form input[type="text"], form input[type="password"] {border: 2px solid #0ca711;}
             form input[type="submit"] {
-                margin-top: 2rem; padding: 0.4rem; width: 100%; background: #0ca711; cursor: pointer; color: white; 
-                font-size: 0.9rem; font-weight: 300; border-radius: 4px; transition: all 0.3s ease;
+                border: 2px solid #0ca711; box-sizing: border-box; height: 50px; width: 40%; cursor: pointer; background: #0ca711;
+                color: #fff; font-weight: 600;
             }
-            form input[type="submit"]:hover {letter-spacing: 0.5px; background: #0ca711;}
+            form input[type="text"]:focus, form input[type="password"]:focus {width: 80%; border: 2px solid #0ca711;}
+            form input[type="submit"]:focus {background: #0ca711; color: #182c61;}
+            form .alreadyAcc {padding-top: 2rem; font-weight: 600;} 
+            form .alreadyAcc:hover {color: #0ca711;}
         </style>
     </head>
     <body>
-        <main class="container">
+    <form action="" method="POST">
             <h2>SignUp</h2>
-            <form action="" method="POST">
-                <div class="input-field">
-                    <input type="text" name="username" id="username" placeholder="Enter Your Username">
-                    <div class="underline"></div>
-                </div>
-                <div class="input-field">
-                    <input type="password" name="password" id="password" placeholder="Enter Your Password">
-                    <div class="underline"></div>
-                </div>
-                <div class="input-field">
-                    <input type="password" class="form-control" name ="confirm_password" id="inputPassword" placeholder="Confirm Password">
-                </div>
-                <input type="submit" value="SignUp">
-            </form>
-        </main>
+            <input type="text" name="username" id="username" placeholder="Username" autocomplete="false">
+            <input type="password" name="password" id="password" placeholder="Password">
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
+            <input type="submit" value="SignUp">   
+            <a href="login.php" class="alreadyAcc">Already have Account? LogIn</a>
+        </form>
     </body>
 </html>
 <!-- HTML Ends Here... -->
