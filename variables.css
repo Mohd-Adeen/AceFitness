@@ -1,0 +1,15 @@
+:root {
+    --green: #0ca711;
+    --white: #fff;
+    --black: #000;
+    --grey: #333;
+    --gray: #666;
+    --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+    --green-border: .1rem solid var(--green);
+    --gray-border: .1rem solid var(--gray);
+    --bg-1: rgb(3, 3, 3);
+    --bg-2: rgb(7, 7, 7);
+    --slide-bg: rgb(14, 13, 13);
+    --slide-p: rgb(141, 131, 131);
+    --primary: #90ff90;
+}
