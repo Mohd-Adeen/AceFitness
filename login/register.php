@@ -38,54 +38,43 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     }
 
     mysqli_stmt_close($stmt);
-
-
-// Check for password
-if(empty(trim($_POST['password']))){
-    $password_err = "Password cannot be blank";
-}
-elseif(strlen(trim($_POST['password'])) < 5){
-    $password_err = "Password cannot be less than 5 characters";
-}
-else{
-    $password = trim($_POST['password']);
-}
-
-// Check for confirm password field
-if(trim($_POST['password']) !=  trim($_POST['confirm_password'])){
-    $password_err = "Passwords should match";
-}
-
-
-// If there were no errors, go ahead and insert into the database
-if(empty($username_err) && empty($password_err) && empty($confirm_password_err))
-{
-    $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-    $stmt = mysqli_prepare($conn, $sql);
-    if ($stmt)
-    {
-        mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
-
-        // Set these parameters
-        $param_username = $username;
-        $param_password = password_hash($password, PASSWORD_DEFAULT);
-
-        // Try to execute the query
-        if (mysqli_stmt_execute($stmt))
-        {
-            header("location: login.php");
-        }
-        else{
-            echo "Something went wrong... cannot redirect!";
-        }
+    
+    // Check for password
+    if(empty(trim($_POST['password']))){
+        $password_err = "Password cannot be blank";
+    }elseif(strlen(trim($_POST['password'])) < 5){
+        $password_err = "Password cannot be less than 5 characters";
+    }else{
+        $password = trim($_POST['password']);
     }
-    mysqli_stmt_close($stmt);
+    
+    // Check for confirm password field
+    if(trim($_POST['password']) !=  trim($_POST['confirm_password'])){
+        $password_err = "Passwords should match";
+    }
+    
+    // If there were no errors, go ahead and insert into the database
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
+        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+        $stmt = mysqli_prepare($conn, $sql);
+        if ($stmt){
+            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+            
+            // Set these parameters
+            $param_username = $username;
+            $param_password = password_hash($password, PASSWORD_DEFAULT);
+            // Try to execute the query
+            if (mysqli_stmt_execute($stmt)){
+                header("location: login.php");
+            }else{
+                echo "Something went wrong... cannot redirect!";
+            }
+        }
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($conn);
 }
-mysqli_close($conn);
-}
-
 ?>
-
 <!-- Php Ends Here... -->
 
 <!-- HTML Starts Here... -->
@@ -94,34 +83,59 @@ mysqli_close($conn);
     <head>
         <title>SignUp</title><meta charset="UTF-8">
         <style>
-            * {margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif;}
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+            * {margin: 0; border: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif;}
             body {
-                background: #262626 url('https://c4.wallpaperflare.com/wallpaper/969/697/87/square-shapes-black-dark-wallpaper-preview.jpg');
-                background-size: cover; min-height: 100vh; display: flex; justify-content: center; align-items: center;
+                background: #666 no-repeat; min-height: 100vh; min-width: 100vw;
+                display: flex; align-items: center; justify-content: center; 
             }
-            form {
-                background: #262626; padding: 20px; display: inline-flex; flex-direction: column; align-items: center; border-radius: 8px; width: 300px; height: 400px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            main.container {
+                background: white; min-width: 320px; min-height: 40vh; padding: 2rem; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+                border-radius: 8px;
             }
-            form h2 {margin-top: 20px; font-size: 55px; margin-bottom: 30px; color: #fff;}
-            form input {
-                border: none; background: none; text-align: center; outline: none; padding: 10px; margin: 20px; color: #fff; height: 30px; width: 70%; 
-                border-radius: 40px; transition: 0.2s ease-in;
+            main h2 {font-weight: 600; margin-bottom: 2rem; position: relative;}
+            main h2::before {
+                content: ''; position: absolute; height: 4px; width: 25px; bottom: 3px; left: 0; border-radius: 8px;
+                background: linear-gradient(45deg, #0ca711, #0ca752);
             }
-            form input[type="text"], form input[type="password"] {border: 2px solid #1b9fcf;}
-            form input[type="submit"] {border: 2px solid #55e6c1; box-sizing: border-box; height: 50px; width: 40%; cursor: pointer;}
-            form input[type="text"]:focus, form input[type="password"]:focus {width: 80%; border: 2px solid #55e6c1;}
-            form input[type="submit"]:focus {background: #55e6c1; color: #182c61;}
+            form {display: flex; flex-direction: column;}
+            .input-field {position: relative;}
+            form .input-field:first-child {margin-bottom: 1.5rem;}
+            .input-field .underline::before {
+                content: ''; position: absolute; height: 1px; width: 100%; bottom: -5px; left: 0; background: rgba(0, 0, 0, 0.2);
+            }
+            .input-field .underline::after {
+                content: ''; position: absolute; height: 1px; width: 100%; bottom: -5px; left: 0; background: #0ca711;
+                transform: scaleX(0); transition: all .3s ease-in-out; transform-origin: left; 
+            }
+            .input-field input:focus ~ .underline::after {transform: scaleX(1);}
+            .input-field input {outline: none; font-size: 0.9rem; color: rgba(0, 0, 0, 0.7); width: 100%;}
+            .input-field input::placeholder {color: rgba(0, 0, 0, 0.5);}
+            form input[type="submit"] {
+                margin-top: 2rem; padding: 0.4rem; width: 100%; background: #0ca711; cursor: pointer; color: white; 
+                font-size: 0.9rem; font-weight: 300; border-radius: 4px; transition: all 0.3s ease;
+            }
+            form input[type="submit"]:hover {letter-spacing: 0.5px; background: #0ca711;}
         </style>
     </head>
     <body>
-        <form action="" method="POST">
+        <main class="container">
             <h2>SignUp</h2>
-            <input type="text" class="form-control" name="username" id="inputEmail4" placeholder="Email">
-            <input type="password" class="form-control" name ="password" id="inputPassword4" placeholder="Password">
-            <input type="password" class="form-control" name ="confirm_password" id="inputPassword" placeholder="Confirm Password">
-            <input type="submit" value="Submit">   
-        </form>
+            <form action="" method="POST">
+                <div class="input-field">
+                    <input type="text" name="username" id="username" placeholder="Enter Your Username">
+                    <div class="underline"></div>
+                </div>
+                <div class="input-field">
+                    <input type="password" name="password" id="password" placeholder="Enter Your Password">
+                    <div class="underline"></div>
+                </div>
+                <div class="input-field">
+                    <input type="password" class="form-control" name ="confirm_password" id="inputPassword" placeholder="Confirm Password">
+                </div>
+                <input type="submit" value="SignUp">
+            </form>
+        </main>
     </body>
 </html>
 <!-- HTML Ends Here... -->

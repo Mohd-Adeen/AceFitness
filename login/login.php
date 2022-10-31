@@ -5,7 +5,7 @@ session_start();
 
 // check if the user is already logged in
 if(isset($_SESSION['username'])){
-    header("location: login.php");
+    header("location: welcome.php");
     exit;
 }
 require_once "config.php";
@@ -33,13 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
                 mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
                 if(mysqli_stmt_fetch($stmt)){
                     if(password_verify($password, $hashed_password)){
-                        // this means the password is corrct. Allow user to login
+                        // this means the password is correct. Allow user to login
                         session_start();
                         $_SESSION["username"] = $username;
                         $_SESSION["id"] = $id;
                         $_SESSION["loggedin"] = true;
                         //Redirect user to Home page
-                        header("location: Project");
+                        header("location: welcome.php");
                             
                     }
                 }
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
             * {margin: 0; border: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif;}
             body {
-                background: linear-gradient(45deg, #8e2de2, #4a00e0); background-repeat: no-repeat; min-height: 100vh; min-width: 100vw;
+                background: #666 no-repeat; min-height: 100vh; min-width: 100vw;
                 display: flex; align-items: center; justify-content: center; 
             }
             main.container {
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             main h2 {font-weight: 600; margin-bottom: 2rem; position: relative;}
             main h2::before {
                 content: ''; position: absolute; height: 4px; width: 25px; bottom: 3px; left: 0; border-radius: 8px;
-                background: linear-gradient(45deg, #8e2de2, #4a00e0);
+                background: linear-gradient(45deg, #0ca711, #0ca752);
             }
             form {display: flex; flex-direction: column;}
             .input-field {position: relative;}
@@ -81,17 +81,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
                 content: ''; position: absolute; height: 1px; width: 100%; bottom: -5px; left: 0; background: rgba(0, 0, 0, 0.2);
             }
             .input-field .underline::after {
-                content: ''; position: absolute; height: 1px; width: 100%; bottom: -5px; left: 0; background: linear-gradient(45deg, #8e2de2, #4a00e0);
+                content: ''; position: absolute; height: 1px; width: 100%; bottom: -5px; left: 0; background: #0ca711;
                 transform: scaleX(0); transition: all .3s ease-in-out; transform-origin: left; 
             }
             .input-field input:focus ~ .underline::after {transform: scaleX(1);}
             .input-field input {outline: none; font-size: 0.9rem; color: rgba(0, 0, 0, 0.7); width: 100%;}
             .input-field input::placeholder {color: rgba(0, 0, 0, 0.5);}
             form input[type="submit"] {
-                margin-top: 2rem; padding: 0.4rem; width: 100%; background: linear-gradient(to left, #4776E6, #8e54e9);
-                cursor: pointer; color: white; font-size: 0.9rem; font-weight: 300; border-radius: 4px; transition: all 0.3s ease;
+                margin-top: 2rem; padding: 0.4rem; width: 100%; background: #0ca711; cursor: pointer; color: white; 
+                font-size: 0.9rem; font-weight: 300; border-radius: 4px; transition: all 0.3s ease;
             }
-            form input[type="submit"]:hover {letter-spacing: 0.5px; background: linear-gradient(to right, #4776E6, #8e54e9);}
+            form input[type="submit"]:hover {letter-spacing: 0.5px; background: #0ca711;}
+            .createAcc {padding-top: 2rem; text-align: center; text-decoration: none; font-weight: 500;} 
+            .createAcc:hover {color: #0ca711;}
         </style>
     </head>
     <body>
@@ -107,6 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
                     <div class="underline"></div>
                 </div>
                 <input type="submit" value="LogIn">
+                <a href="register.php" class="createAcc">Create Account</a>
             </form>
         </main>
     </body>
