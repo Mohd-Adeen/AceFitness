@@ -5,7 +5,7 @@ session_start();
 
 // check if the user is already logged in
 if(isset($_SESSION['username'])){
-    header("location: welcome.php");
+    header("location: index.php");
     exit;
 }
 require_once "config.php";
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
                         $_SESSION["id"] = $id;
                         $_SESSION["loggedin"] = true;
                         //Redirect user to Home page
-                        header("location: welcome.php");
+                        header("location: index.php");
                             
                     }
                 }

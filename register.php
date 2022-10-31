@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             $param_password = password_hash($password, PASSWORD_DEFAULT);
             // Try to execute the query
             if (mysqli_stmt_execute($stmt)){
-                header("location: inde");
+                header("location: login.php");
             }else{
                 echo "Something went wrong... cannot redirect!";
             }

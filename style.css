@@ -34,6 +34,7 @@ section {padding: 2rem 9%;}
 .header .navbar a {font-size: 2rem; color: var(--white); margin-left: 2rem;}
 .header .navbar a:hover {color: var(--green); text-decoration: none;}
 #menu-btn {font-size: 2.5rem; color: var(--white); border-radius: .3rem; padding: .5rem 1.5rem; cursor: pointer; display: none;}
+.header .navbar .login-btn {padding-right: 20px;}
 
 /* Home */
 .home {

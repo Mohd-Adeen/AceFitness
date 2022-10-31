@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !==true){
+    header("location: index.php");
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en-IN">
     <!--Head Section Starts-->
@@ -31,7 +41,7 @@
                 <a href="about.html">About Us</a>
                 <a href="#exercise">Exercises</a>
                 <a href="#contact">Contact Us</a>
-                <a href="login.php" class="login-btn" id="login"><i class="ri-user-line"></i></a>
+                <a href="login.php" class="login-btn" id="login"><i class="ri-user-line"><?php echo $_SESSION['username']?></i></a>
                 <a href="logout.php" class="logout-btn" id="logout"><i class="ri-logout-box-r-line"></i></a>
             </nav>
         </header>
