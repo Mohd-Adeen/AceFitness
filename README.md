@@ -30,6 +30,10 @@ Please follow the below steps to run this project.
 - Subject : Mini Project – 1 A  (MP-1(2019)(P))
 - Project Type : Mini Project
 
+## Project Screenshot
+![Screenshot (26)](https://user-images.githubusercontent.com/85848523/199689064-b7605e48-2d58-4990-a826-d751d9644f5c.png)
+
+
 ### Platform, Libraries and Frameworks used
 1. HTML
 2. CSS
